@@ -2,7 +2,7 @@
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
   nickname VARCHAR(50) NOT NULL,
-  email VARCHAR(200) NOT NULL,
+  email VARCHAR(200) NOT NULL UNIQUE,
   password VARCHAR(200) NOT NULL,
   phone_number VARCHAR(13) NULL, 
   birth_day TIMESTAMP NULL,
