@@ -9,7 +9,6 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(cors());
-const userService = require("./src/services/userService.js");
 
 app.get("/", userService.hello);
 app.get("/ping", async (req, res) => {

@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { DataSource } = require("typeorm");
 const myDataSource = new DataSource({
