@@ -28,9 +28,9 @@ const userSignup = async(req, res) => {
         console.log("ME : ", me);
 
         //DATABASE 정보 저장
-        const {nickname, password, email } = me;
+        const {nickname, email, password } = me;
 
-        //이메일 정규화 -> 졸라 복잡함 맞는건지 모름
+        //이메일 정규화
         let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
         if(regex.test(email) == false){
             const error = new Error("DISABLE_EMAIL");
@@ -41,7 +41,7 @@ const userSignup = async(req, res) => {
 
 
         //email, name, password가 다 입력되지 않은 경우
-        if(nickname === undefined || password === undefined || email === undefined){
+        if(nickname === undefined || email === undefined || password === undefined){
             const error = new Error("KEY_ERROR")
             error.statusCode = 400
             error.code = "KEY_ERROR"
@@ -88,16 +88,18 @@ const userSignup = async(req, res) => {
         const userData = await myDataSource.query(`
         INSERT INTO users (
             nickname, 
-            password, 
-            email
+            email, 
+            password
             ) VALUES (
                 '${nickname}',
-                '${hashedPw}',
-                '${email}'
+                '${email}',
+                '${hashedPw}'
             )
         `)
 
+        console.log("signUpSuccess");
         console.log("New User : ", userData);
+        
 
         //FRONT 전달
         return res.status(201).json({
@@ -155,9 +157,10 @@ const userLogin = async(req, res) => {
         const token = jwt.sign({"id" : userId }, process.env.TYPEORM_JWT)
         // const token = jwt.sign({id : 'id'}, 'password')
 
+        console.log("loginSuccess")
         //로그인 성공 및 토큰 발급 정상인지 확인
         return res.status(200).json({
-            "code" : "어렵다",
+            "code" : "logInSuccess",
             "accessToken" : token
         })
 
@@ -168,6 +171,6 @@ const userLogin = async(req, res) => {
 }
 
 module.exports = {
-    "userSignup" : userSignup,
-    "userLogin" : userLogin
+    userSignup,
+    userLogin
 }

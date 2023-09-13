@@ -2,7 +2,7 @@ const http = require('http')
 const express = require('express')
 const cors = require('cors')
 const userService = require('./src/services/userService.js')
-const threadService = require("./src/services/threadService.js")
+const threadService = require('./src/services/threadService.js')
 
 //app.js에서 express 함수 사용
 const app = express()
@@ -44,7 +44,7 @@ const server = http.createServer(app)
 
 const start = async() => {
     try {
-        server.listen(8001, () => console.log(`Server is listening on 8001`))
+        server.listen(8000, () => console.log(`Server is listening on 8000`))
     } catch (error) {
         console.log(error)
     }
