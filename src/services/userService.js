@@ -15,7 +15,7 @@ myDataSource.initialize().then(() => {
 
 const hello = async (req, res) => {
   try {
-    return res.status(200).json({ message: "hello" });
+    return res.status(200).json({ message: "hello!!" });
   } catch (error) {
     console.log(error);
   }
