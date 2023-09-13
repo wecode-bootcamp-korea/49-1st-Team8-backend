@@ -1,8 +1,8 @@
 const http = require('http')
 const express = require('express')
 const cors = require('cors')
-const userService = require('./services/userService.js')
-const threadService = require("./services/threadService.js")
+const userService = require('./src/services/userService.js')
+const threadService = require("./src/services/threadService.js")
 
 //app.js에서 express 함수 사용
 const app = express()
