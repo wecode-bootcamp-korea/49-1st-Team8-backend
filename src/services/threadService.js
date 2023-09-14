@@ -33,7 +33,9 @@ const readThreads = async (req, res) => {
         INNER JOIN users ON threads.user_id = users.id
         ORDER BY threads.created_at DESC;
         `)
-
+        
+        getThread.forEach((thread) => (thread.createdAt = thread.createdAt.toISOString().slice(2, 10).replaceAll("-", ".")))
+        
         console.log("success");
         //결과 출력
         return res.status(200).json({

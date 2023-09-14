@@ -31,17 +31,21 @@ const userSignup = async(req, res) => {
         const {nickname, email, password } = me;
 
         //이메일 정규화
-        let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-        if(regex.test(email) == false){
-            const error = new Error("DISABLE_EMAIL");
-            error.statusCode = 400;
-            error.code = "DISABLE_EMAIL"
-            throw error
+        const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+        const extractedEmails = email.match(emailRegex);
+
+        if(!email.match(emailRegex)) {
+        const error = new Error("DISABLE_EMAIL")
+        error.statusCode = 400
+        error.code = "DISABLE_EMAIL"
+        throw error
         }
+
+        console.log(extractedEmails);
 
 
         //email, name, password가 다 입력되지 않은 경우
-        if(nickname === undefined || email === undefined || password === undefined){
+        if(!nickname || !email || !password){
             const error = new Error("KEY_ERROR")
             error.statusCode = 400
             error.code = "KEY_ERROR"
@@ -60,7 +64,7 @@ const userSignup = async(req, res) => {
 
         //1. 유저가 입력한 이메일이 이미 우리 DB에 있는지 확인
         const existingData = await myDataSource.query(`
-         SELECT id, email FROM users WHERE email = '${email}'
+         SELECT id, email, password FROM users WHERE email = '${email}'
         `)
 
         console.log("user : " , existingData)

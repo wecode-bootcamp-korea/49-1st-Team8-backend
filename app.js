@@ -3,6 +3,9 @@ const express = require('express')
 const cors = require('cors')
 const userService = require('./src/services/userService.js')
 const threadService = require('./src/services/threadService.js')
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 //app.js에서 express 함수 사용
 const app = express()
@@ -44,7 +47,7 @@ const server = http.createServer(app)
 
 const start = async() => {
     try {
-        server.listen(8000, () => console.log(`Server is listening on 8000`))
+        server.listen(process.env.SERVER_PORT, () => console.log(`Server is listening on 8000`))
     } catch (error) {
         console.log(error)
     }
